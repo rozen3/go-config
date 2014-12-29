@@ -24,7 +24,9 @@ go-config
 ###Usage:
 
 * use cfg, err := NewRDCFG(configpath) to create a RDCFG obj
+* 
 * use value, err := cfg.GetDefault("ip") to get string value in form1 (or use cfg.Get("", "ip") intead)
+* 
 * use value, err := cfg.Get("broker", "listen_port") to get string value in form2
 *
-* other functions for use: GetInt、GetFloat64、 GetIntDefault、GetFloat64、Default
+* other functions for use: GetInt、GetFloat64、 GetIntDefault、GetFloat64Default
