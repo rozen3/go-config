@@ -6,8 +6,8 @@ go-config
 2. the config file must follow FORMAT 1 or FORMAT 2
 
 ###FORMAT 1
-  ip =   127.0.0.1
-  port=1234
+    ip =   127.0.0.1
+      port=1234
 
 
 ###FORMAT 2:
@@ -22,8 +22,8 @@ go-config
   [logger]
   listen_port = 1888
 
-Usage:
-=========================================
+###Usage:
+
 * use cfg, err := NewRDCFG(configpath) to create a RDCFG obj
 * use value, err := cfg.GetDefault("ip") to get string value in form1 (or use cfg.Get("", "ip") intead)
 * use value, err := cfg.Get("broker", "listen_port") to get string value in form2
