@@ -5,16 +5,13 @@ go-config
 
 2. the config file must follow FORMAT 1 or FORMAT 2
 
-FORMAT 1
-========================================
-# notes
+#FORMAT 1
 # default section
 ip =   127.0.0.1
 port=1234
 
 
-FORMAT 2:
-=========================================
+#FORMAT 2:
 #default
  ip = 127.0.0.1
 
