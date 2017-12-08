@@ -74,10 +74,10 @@ func NewRDCFG(config string) (*RDCFG, error) {
 	f.Read(buff)
 	str := string(buff)
 	if !strings.HasSuffix(str, "\n") {
-		return nil, errors.New("Config file does not end with a newline character.")
+		str += "\n";
 	}
 
-	err = cfg.loadCfg(string(buff))
+	err = cfg.loadCfg(str)
 	if err != nil {
 		return nil, err
 	}
@@ -162,6 +162,9 @@ func (cfg *RDCFG) loadCfg(filebuf string) error {
 	var r = strings.NewReplacer(" ", "")
 	news := r.Replace(filebuf)
 
+	// trim \r\n
+	news = strings.Replace(news, "\r\n", "\n", -1)
+
 	// filter
 	re := regexp.MustCompile("\\[.*\\]\n|.+=.+\\n")
 	allLines := re.FindAllString(news, -1)
@@ -188,7 +191,7 @@ func (cfg *RDCFG) loadCfg(filebuf string) error {
 				nowSectionName = tmp
 				cfg.addSection(nowSectionName)
 			} else {
-				return errors.New("repeat section name")
+				return errors.New("repeat section name:[" + tmp + "]")
 			}
 		} else if pos := strings.Index(line, "="); pos >= 0 {
 			k := line[:pos]
@@ -207,7 +210,7 @@ func (cfg *RDCFG) getSection(secname string) (*section, error) {
 	if sec, ok := cfg.m[secname]; ok {
 		return sec, nil
 	} else {
-		return nil, errors.New("specified section not found")
+		return nil, errors.New("specified section not found:[" + secname + "]")
 	}
 }
 
@@ -239,7 +242,7 @@ func (s *section) get(key string) (string, error) {
 	if value, ok := s.m[key]; ok {
 		return value, nil
 	} else {
-		return "", errors.New("could not find value by key")
+		return "", errors.New("could not find value by key:[" + key + "]")
 	}
 }
 
@@ -247,7 +250,7 @@ func (s *section) get(key string) (string, error) {
 // when succeed, return nil
 func (s *section) set(key string, value string) error {
 	if _, ok := s.m[key]; ok {
-		return errors.New("key already exists")
+		return errors.New("key already exists:[" + key + "]")
 	} else {
 		s.m[key] = value
 		return nil
