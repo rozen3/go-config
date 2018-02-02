@@ -29,4 +29,6 @@ go-config
 
 * use value, err := cfg.Get("broker", "listen_port") to get string value in form2
 
+* test add readme
+
 * other functions for use: GetInt、GetFloat64、 GetIntDefault、GetFloat64Default
